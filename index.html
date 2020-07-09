@@ -12,8 +12,8 @@
 <body>
   <div class="container" id="app">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
-      Launch demo modal
+    <button type="button" class="btn btn-primary" @click="openModal('new')">
+      新增商品
     </button>
     <table class="table">
       <thead class="thead-dark">
@@ -37,10 +37,10 @@
             <span v-else="item.is_enabled">未上架</span>
           </td>
           <td>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
+            <button type="button" class="btn btn-primary" @click="openModal('edit', item)">
               編輯
             </button>
-            <button type="button" class="btn btn-danger" data-toggle="" data-target="">
+            <button type="button" class="btn btn-danger" @click="openModal('delete', item)">
               刪除
             </button>
           </td>
@@ -49,7 +49,7 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -98,12 +98,30 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" @click="updateProduct" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="delProductModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">刪除商品</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span class="text-white" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>確認刪除- {{ tempProduct.title }} -這個商品嗎？<span class="ml-3">(刪除後無法復原!!)</span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" @click="deleteProduct">確認刪除</button>
           </div>
         </div>
       </div>

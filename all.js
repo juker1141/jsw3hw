@@ -32,6 +32,37 @@ new Vue({
         this.products.push(this.tempProduct);
       }
       this.tempProduct = {};
-    }
+      $('#productModal').modal('hide');
+    },
+    openModal(isNew, item){
+      switch(isNew){
+        case 'new':
+          this.tempProduct = {};
+          $('#productModal').modal('show');
+          break;
+        case 'edit':
+          this.tempProduct = Object.assign({}, item);
+          $('#productModal').modal('show');
+          break;
+        case 'delete':
+          $('#delProductModal').modal('show');
+          this.tempProduct = Object.assign({}, item);
+          break;
+        default:
+          break;
+      }
+    },
+    deleteProduct(){
+      if(this.tempProduct.id){
+        const id = this.tempProduct.id;
+        this.products.forEach((item, i) => {
+          if(item.id === id){
+            this.products.splice(i, 1);
+            this.tempProduct = {};
+          }
+        });
+      }
+      $('#delProductModal').modal('hide');
+    },
   },
 })
